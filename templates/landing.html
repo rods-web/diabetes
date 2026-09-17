@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html><head><title>DiaPredict</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+<body class="landing-body">
+<nav class="navbar"><div class="nav-logo">🩺 DiaPredict</div>
+<div class="nav-links"><a href="{{ url_for('login') }}" class="btn-outline">Login</a>
+<a href="{{ url_for('signup') }}" class="btn-primary">Sign Up</a></div></nav>
+<section class="hero"><div class="hero-content">
+<h1>Predict Diabetes Risk with AI</h1>
+<p>An enhanced Random Forest machine learning system for accurate diabetes risk assessment.</p>
+<div class="hero-buttons"><a href="{{ url_for('signup') }}" class="btn-primary btn-lg">Get Started</a>
+<a href="{{ url_for('login') }}" class="btn-outline btn-lg">I Have an Account</a></div></div></section>
+<section class="features"><h2>Key Features</h2><div class="feature-grid">
+<div class="feature-card"><div class="feature-icon">🎯</div><h3>High Accuracy</h3><p>Enhanced Random Forest optimized through feature selection.</p></div>
+<div class="feature-card"><div class="feature-icon">⚡</div><h3>Instant Results</h3><p>Real-time predictions through an intuitive interface.</p></div>
+<div class="feature-card"><div class="feature-icon">🔒</div><h3>Secure</h3><p>Protected accounts, private health data.</p></div></div></section>
+<footer class="footer"><p>© 2025 DiaPredict | PLMun</p><p class="disclaimer">Not a medical diagnosis.</p></footer>
+</body></html>

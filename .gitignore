@@ -1,0 +1,12 @@
+﻿users.json
+history.json
+feedback.json
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+.vscode/
+.idea/
+*.log

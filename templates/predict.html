@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html><head><title>New Prediction - DiaPredict</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+<body class="app-body">
+<aside class="sidebar"><div class="sidebar-logo">🩺 DiaPredict</div>
+<nav class="sidebar-nav">
+<a href="{{ url_for('dashboard') }}">📊 Dashboard</a>
+<a href="{{ url_for('predict') }}" class="active">🧪 New Prediction</a>
+<a href="{{ url_for('history') }}">📁 History</a>
+<a href="{{ url_for('feedback') }}">⭐ Feedback</a>
+<a href="{{ url_for('settings') }}">⚙️ Settings</a></nav>
+<div class="sidebar-footer"><div class="user-info"><div class="user-avatar">{{ user[0]|upper }}</div>
+<div><div class="user-name">{{ user }}</div></div></div>
+<a href="{{ url_for('logout') }}" class="btn-logout">Logout</a></div></aside>
+<main class="main-content">
+<header class="page-header"><h1>New Prediction</h1><p>Enter patient clinical data.</p></header>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% for cat, msg in messages %}<div class="flash flash-{{ cat }}">{{ msg }}</div>{% endfor %}{% endwith %}
+<div class="form-card"><form method="POST" action="{{ url_for('predict') }}">
+<div class="form-grid">{% for f in features %}
+<div class="form-group"><label>{{ f }}</label>
+<input type="number" step="any" name="{{ f }}" required placeholder="Enter {{ f }}"></div>
+{% endfor %}</div>
+<button type="submit" class="btn-primary btn-block">🧪 Generate Prediction</button>
+</form></div></main></body></html>

@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html><head><title>Sign Up - DiaPredict</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script src="https://www.google.com/recaptcha/api.js" async defer></script></head>
+<body class="auth-body"><div class="auth-card">
+<div class="auth-header"><div class="auth-logo">🩺</div><h2>Create Your Account</h2>
+<p>Join DiaPredict</p></div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% for cat, msg in messages %}<div class="flash flash-{{ cat }}">{{ msg }}</div>{% endfor %}{% endwith %}
+<form method="POST" action="{{ url_for('signup') }}">
+<div class="form-group"><label>Username</label><input type="text" name="username" required placeholder="Username"></div>
+<div class="form-group"><label>Email</label><input type="email" name="email" required placeholder="your@email.com"></div>
+<div class="form-group"><label>Password</label><input type="password" name="password" required placeholder="Password"></div>
+<div class="g-recaptcha" data-sitekey="{{ site_key }}" style="margin: 15px 0;"></div>
+<button type="submit" class="btn-primary btn-block">Sign Up</button></form>
+<p class="auth-footer">Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
+</div></body></html>

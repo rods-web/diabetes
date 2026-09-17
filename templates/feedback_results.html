@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html><head><title>Results - DiaPredict</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script></head>
+<body class="app-body">
+<aside class="sidebar"><div class="sidebar-logo">🩺 DiaPredict</div>
+<nav class="sidebar-nav">
+<a href="{{ url_for('dashboard') }}">📊 Dashboard</a>
+<a href="{{ url_for('predict') }}">🧪 New Prediction</a>
+<a href="{{ url_for('history') }}">📁 History</a>
+<a href="{{ url_for('feedback') }}">⭐ Feedback</a>
+<a href="{{ url_for('settings') }}">⚙️ Settings</a></nav>
+<div class="sidebar-footer"><div class="user-info"><div class="user-avatar">{{ user[0]|upper }}</div>
+<div><div class="user-name">{{ user }}</div></div></div>
+<a href="{{ url_for('logout') }}" class="btn-logout">Logout</a></div></aside>
+<main class="main-content">
+<header class="page-header"><h1>📊 Feedback Results</h1></header>
+{% if total == 0 %}
+<div class="info-card"><h3>No feedback yet</h3><a href="{{ url_for('feedback') }}" class="btn-primary">⭐ Give Feedback</a></div>
+{% else %}
+<section class="kpi-row">
+<div class="kpi-card"><div class="kpi-icon blue">👥</div><div><div class="kpi-label">Responses</div><div class="kpi-value">{{ total }}</div></div></div>
+<div class="kpi-card"><div class="kpi-icon green">⭐</div><div><div class="kpi-label">Overall Mean</div><div class="kpi-value">{{ overall_mean }} / 5</div></div></div>
+<div class="kpi-card"><div class="kpi-icon purple">🏆</div><div><div class="kpi-label">Rating</div><div class="kpi-value">{{ interpretation }}</div></div></div></section>
+<section class="charts-row">
+<div class="chart-card"><h3>Mean per Criterion</h3><canvas id="mc"></canvas></div>
+<div class="chart-card"><h3>Interpretation Guide</h3>
+<table style="margin-top:15px;"><thead><tr><th>Range</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>4.50-5.00</td><td>Excellent</td></tr><tr><td>3.50-4.49</td><td>Very Good</td></tr>
+<tr><td>2.50-3.49</td><td>Good</td></tr><tr><td>1.50-2.49</td><td>Fair</td></tr>
+<tr><td>1.00-1.49</td><td>Poor</td></tr></tbody></table></div></section>
+<div class="table-card"><h3>Breakdown</h3><table><thead><tr><th>Criterion</th><th>Mean</th><th>Interpretation</th></tr></thead>
+<tbody>{% for k, v in means.items() %}<tr><td><strong>{{ k|capitalize }}</strong></td><td>{{ v }}</td>
+<td>{% if v >= 4.5 %}Excellent{% elif v >= 3.5 %}Very Good{% elif v >= 2.5 %}Good{% elif v >= 1.5 %}Fair{% else %}Poor{% endif %}</td></tr>
+{% endfor %}</tbody></table></div>
+{% endif %}</main>
+<script>{% if total > 0 %}
+new Chart(document.getElementById('mc'),{type:'bar',
+data:{labels:['Accuracy','Reliability','Efficiency','Usability','Overall'],
+datasets:[{label:'Mean',data:[{{ means.accuracy }},{{ means.reliability }},{{ means.efficiency }},{{ means.usability }},{{ means.overall }}],
+backgroundColor:['#667eea','#764ba2','#f093fb','#4facfe','#43e97b']}]},
+options:{responsive:true,scales:{y:{beginAtZero:true,max:5}},plugins:{legend:{display:false}}}});
+{% endif %}</script></body></html>

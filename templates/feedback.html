@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html><head><title>Feedback - DiaPredict</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+<body class="app-body">
+<aside class="sidebar"><div class="sidebar-logo">🩺 DiaPredict</div>
+<nav class="sidebar-nav">
+<a href="{{ url_for('dashboard') }}">📊 Dashboard</a>
+<a href="{{ url_for('predict') }}">🧪 New Prediction</a>
+<a href="{{ url_for('history') }}">📁 History</a>
+<a href="{{ url_for('feedback') }}" class="active">⭐ Feedback</a>
+<a href="{{ url_for('settings') }}">⚙️ Settings</a></nav>
+<div class="sidebar-footer"><div class="user-info"><div class="user-avatar">{{ user[0]|upper }}</div>
+<div><div class="user-name">{{ user }}</div></div></div>
+<a href="{{ url_for('logout') }}" class="btn-logout">Logout</a></div></aside>
+<main class="main-content">
+<header class="page-header"><h1>⭐ Usability Feedback</h1><p>Rate 1 (Poor) to 5 (Excellent).</p></header>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% for cat, msg in messages %}<div class="flash flash-{{ cat }}">{{ msg }}</div>{% endfor %}{% endwith %}
+<div class="form-card"><form method="POST">
+{% for k, label in [('accuracy','Accuracy'), ('reliability','Reliability'), ('efficiency','Efficiency'), ('usability','Usability'), ('overall','Overall')] %}
+<div class="likert-group"><label>{{ loop.index }}. {{ label }}</label>
+<div class="likert-row">{% for i in range(1, 6) %}
+<label class="likert-option"><input type="radio" name="{{ k }}" value="{{ i }}" required><span>{{ i }}</span></label>
+{% endfor %}</div><div class="likert-labels"><span>Poor</span><span>Excellent</span></div></div>
+{% endfor %}
+<div class="form-group"><label>Comments (optional)</label>
+<textarea name="comment" rows="3" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:8px;font-family:inherit;"></textarea></div>
+<button type="submit" class="btn-primary btn-block">Submit Feedback</button>
+</form></div></main></body></html>

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html><head><title>History - DiaPredict</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+<body class="app-body">
+<aside class="sidebar"><div class="sidebar-logo">🩺 DiaPredict</div>
+<nav class="sidebar-nav">
+<a href="{{ url_for('dashboard') }}">📊 Dashboard</a>
+<a href="{{ url_for('predict') }}">🧪 New Prediction</a>
+<a href="{{ url_for('history') }}" class="active">📁 History</a>
+<a href="{{ url_for('feedback') }}">⭐ Feedback</a>
+<a href="{{ url_for('settings') }}">⚙️ Settings</a></nav>
+<div class="sidebar-footer"><div class="user-info"><div class="user-avatar">{{ user[0]|upper }}</div>
+<div><div class="user-name">{{ user }}</div></div></div>
+<a href="{{ url_for('logout') }}" class="btn-logout">Logout</a></div></aside>
+<main class="main-content">
+<header class="page-header"><h1>Prediction History</h1></header>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% for cat, msg in messages %}<div class="flash flash-{{ cat }}">{{ msg }}</div>{% endfor %}{% endwith %}
+<section class="kpi-row">
+<div class="kpi-card"><div class="kpi-icon blue">📊</div><div><div class="kpi-label">Total</div><div class="kpi-value">{{ total }}</div></div></div>
+<div class="kpi-card"><div class="kpi-icon orange">⚠️</div><div><div class="kpi-label">High Risk</div><div class="kpi-value">{{ high_risk }}</div></div></div>
+<div class="kpi-card"><div class="kpi-icon green">✅</div><div><div class="kpi-label">Low Risk</div><div class="kpi-value">{{ low_risk }}</div></div></div>
+<div class="kpi-card"><div class="kpi-icon purple">🎯</div><div><div class="kpi-label">Avg Conf</div><div class="kpi-value">{{ avg_conf }}%</div></div></div></section>
+{% if total == 0 %}
+<div class="info-card"><h3>No predictions yet</h3>
+<a href="{{ url_for('predict') }}" class="btn-primary">🧪 Start Predicting</a></div>
+{% else %}
+<div class="table-card"><div class="table-header"><h3>All Records</h3>
+<form method="POST" action="{{ url_for('clear_history') }}" onsubmit="return confirm('Clear all?');">
+<button type="submit" class="btn-danger">🗑 Clear</button></form></div>
+<div class="table-scroll"><table><thead><tr><th>#</th><th>Date</th><th>Result</th><th>Confidence</th>
+{% for f in feature_names %}<th>{{ f }}</th>{% endfor %}</tr></thead>
+<tbody>{% for h in history %}<tr><td>{{ loop.index }}</td><td>{{ h.timestamp }}</td>
+<td>{% if h.prediction == 'High Risk' %}<span class="badge badge-danger">High Risk</span>
+{% else %}<span class="badge badge-success">Low Risk</span>{% endif %}</td>
+<td><strong>{{ h.confidence }}%</strong></td>
+{% for f in feature_names %}<td>{{ h.inputs[f] }}</td>{% endfor %}</tr>{% endfor %}</tbody></table></div></div>
+{% endif %}</main></body></html>
