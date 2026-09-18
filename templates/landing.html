@@ -1,18 +1,79 @@
 ﻿<!DOCTYPE html>
-<html><head><title>DiaPredict</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+<html>
+<head>
+    <title>DiaPredict - Diabetes Risk Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
 <body class="landing-body">
-<nav class="navbar"><div class="nav-logo">🩺 DiaPredict</div>
-<div class="nav-links"><a href="{{ url_for('login') }}" class="btn-outline">Login</a>
-<a href="{{ url_for('signup') }}" class="btn-primary">Sign Up</a></div></nav>
-<section class="hero"><div class="hero-content">
-<h1>Predict Diabetes Risk with AI</h1>
-<p>An enhanced Random Forest machine learning system for accurate diabetes risk assessment.</p>
-<div class="hero-buttons"><a href="{{ url_for('signup') }}" class="btn-primary btn-lg">Get Started</a>
-<a href="{{ url_for('login') }}" class="btn-outline btn-lg">I Have an Account</a></div></div></section>
-<section class="features"><h2>Key Features</h2><div class="feature-grid">
-<div class="feature-card"><div class="feature-icon">🎯</div><h3>High Accuracy</h3><p>Enhanced Random Forest optimized through feature selection.</p></div>
-<div class="feature-card"><div class="feature-icon">⚡</div><h3>Instant Results</h3><p>Real-time predictions through an intuitive interface.</p></div>
-<div class="feature-card"><div class="feature-icon">🔒</div><h3>Secure</h3><p>Protected accounts, private health data.</p></div></div></section>
-<footer class="footer"><p>© 2025 DiaPredict | PLMun</p><p class="disclaimer">Not a medical diagnosis.</p></footer>
-</body></html>
+
+    <nav class="navbar">
+        <div class="nav-logo">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+            <span>DiaPredict</span>
+        </div>
+        <div class="nav-links">
+            <a href="{{ url_for('login') }}" class="btn-outline">Login</a>
+            <a href="{{ url_for('signup') }}" class="btn-primary">Sign Up</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Predict Diabetes Risk with AI</h1>
+            <p>An enhanced Random Forest machine learning system for accurate, reliable diabetes risk assessment using clinical health data.</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('signup') }}" class="btn-primary btn-lg">Get Started</a>
+                <a href="{{ url_for('login') }}" class="btn-outline btn-lg">I Have an Account</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Key Features</h2>
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <circle cx="12" cy="12" r="6"/>
+                        <circle cx="12" cy="12" r="2"/>
+                    </svg>
+                </div>
+                <h3>High Accuracy</h3>
+                <p>Enhanced Random Forest optimized through feature selection, hyperparameter tuning, and class-imbalance handling.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                    </svg>
+                </div>
+                <h3>Instant Results</h3>
+                <p>Real-time risk predictions through an intuitive interface. Get results in seconds after entering clinical data.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                </div>
+                <h3>Secure Accounts</h3>
+                <p>Passwords are cryptographically hashed, and every page is protected with reCAPTCHA. Your health data stays private.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2025 DiaPredict | Pamantasan ng Lungsod ng Muntinlupa</p>
+        <p class="disclaimer">This system is not a medical diagnosis. Consult a healthcare professional.</p>
+    </footer>
+
+</body>
+</html>

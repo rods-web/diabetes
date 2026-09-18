@@ -8,53 +8,112 @@
 <body class="app-body">
 
     <aside class="sidebar">
-        <div class="sidebar-logo">🩺 DiaPredict</div>
+        <div class="sidebar-logo">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+            <span>DiaPredict</span>
+        </div>
         <nav class="sidebar-nav">
-            <a href="{{ url_for('dashboard') }}" class="active">📊 Dashboard</a>
-            <a href="{{ url_for('predict') }}">🧪 New Prediction</a>
-            <a href="{{ url_for('history') }}">📁 History</a>
-            <a href="{{ url_for('feedback') }}">⭐ Feedback</a>
-            <a href="{{ url_for('settings') }}">⚙️ Settings</a>
+            <a href="{{ url_for('dashboard') }}" class="active">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/>
+                    <rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/>
+                </svg>
+                <span>Dashboard</span>
+            </a>
+            <a href="{{ url_for('predict') }}">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                </svg>
+                <span>New Prediction</span>
+            </a>
+            <a href="{{ url_for('history') }}">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/>
+                </svg>
+                <span>History</span>
+            </a>
+            <a href="{{ url_for('feedback') }}">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+                <span>Feedback</span>
+            </a>
+            <a href="{{ url_for('settings') }}">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+                <span>Settings</span>
+            </a>
         </nav>
         <div class="sidebar-footer">
             <div class="user-info">
                 <div class="user-avatar">{{ user[0]|upper }}</div>
-                <div><div class="user-name">{{ user }}</div></div>
+                <div>
+                    <div class="user-name">{{ user }}</div>
+                    <div class="user-email">{{ email }}</div>
+                </div>
             </div>
-            <a href="{{ url_for('logout') }}" class="btn-logout">Logout</a>
+            <a href="{{ url_for('logout') }}" class="btn-logout">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                Logout
+            </a>
         </div>
     </aside>
 
     <main class="main-content">
+
         <header class="page-header">
             <h1>Dashboard</h1>
-            <p>Welcome back, {{ user }}.</p>
+            <p>Overview of your diabetes risk prediction activity</p>
         </header>
 
         <section class="kpi-row">
             <div class="kpi-card">
-                <div class="kpi-icon blue">📊</div>
+                <div class="kpi-icon blue">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                    </svg>
+                </div>
                 <div>
                     <div class="kpi-label">Total Predictions</div>
                     <div class="kpi-value">{{ total_predictions }}</div>
                 </div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-icon orange">⚠️</div>
+                <div class="kpi-icon orange">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                </div>
                 <div>
                     <div class="kpi-label">High Risk</div>
                     <div class="kpi-value">{{ high_risk_count }}</div>
                 </div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-icon green">✅</div>
+                <div class="kpi-icon green">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                </div>
                 <div>
                     <div class="kpi-label">Low Risk</div>
                     <div class="kpi-value">{{ low_risk_count }}</div>
                 </div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-icon purple">🏆</div>
+                <div class="kpi-icon purple">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+                    </svg>
+                </div>
                 <div>
                     <div class="kpi-label">Model AUC</div>
                     <div class="kpi-value">
@@ -105,27 +164,33 @@
             </div>
             <div class="cta-card">
                 <h3>Ready to Predict?</h3>
-                <p>Enter patient health data for instant risk assessment.</p>
-                <a href="{{ url_for('predict') }}" class="btn-primary btn-block">🧪 New Prediction</a>
+                <p>Enter patient health data and get an instant diabetes risk assessment.</p>
+                <a href="{{ url_for('predict') }}" class="btn-primary btn-block">Start New Prediction</a>
             </div>
         </section>
+
     </main>
 
     <!-- CHATBOT -->
-    <div id="chat-toggle" onclick="toggleChat()">💬</div>
+    <div id="chat-toggle" onclick="toggleChat()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+    </div>
+
     <div id="chat-box" class="chat-box">
         <div class="chat-header">
             <div>
-                <strong>🤖 DiaBot</strong>
+                <strong>DiaBot Assistant</strong>
                 <div class="chat-status">Ask about diabetes or this site</div>
             </div>
-            <span onclick="toggleChat()" class="chat-close">✖</span>
+            <span onclick="toggleChat()" class="chat-close">✕</span>
         </div>
         <div id="chat-messages" class="chat-messages">
-            <div class="chat-msg bot">Hi! 👋 Ask me anything about diabetes or this website.</div>
+            <div class="chat-msg bot">Hello! I'm DiaBot. Ask me anything about diabetes, this website, or how to make a prediction.</div>
         </div>
         <div class="chat-input-row">
-            <input type="text" id="chat-input" placeholder="Type..."
+            <input type="text" id="chat-input" placeholder="Type your question..."
                    onkeypress="if(event.key==='Enter') sendMessage()">
             <button onclick="sendMessage()">Send</button>
         </div>
@@ -135,26 +200,30 @@
     <script>
         console.log(">>> Dashboard scripts loading...");
 
-        // ---------- CHARTS ----------
-        try {
-            const cd = {{ comparison|tojson }};
-            console.log(">>> Comparison data:", cd);
+        // CHARTS
+        const cd = {{ comparison|tojson }};
+        console.log(">>> Chart data:", cd);
 
+        if (cd.length > 0) {
             new Chart(document.getElementById('comparisonChart'), {
                 type: 'bar',
                 data: {
                     labels: cd.map(d => d.model),
                     datasets: [
-                        { label: 'Accuracy',  data: cd.map(d => d.accuracy),  backgroundColor: '#667eea' },
-                        { label: 'Precision', data: cd.map(d => d.precision), backgroundColor: '#764ba2' },
-                        { label: 'Recall',    data: cd.map(d => d.recall),    backgroundColor: '#f093fb' },
-                        { label: 'F1',        data: cd.map(d => d.f1),        backgroundColor: '#4facfe' }
+                        { label: 'Accuracy',  data: cd.map(d => d.accuracy),  backgroundColor: '#4f46e5' },
+                        { label: 'Precision', data: cd.map(d => d.precision), backgroundColor: '#7c3aed' },
+                        { label: 'Recall',    data: cd.map(d => d.recall),    backgroundColor: '#ec4899' },
+                        { label: 'F1',        data: cd.map(d => d.f1),        backgroundColor: '#06b6d4' }
                     ]
                 },
-                options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
+                }
             });
 
-            const top = cd[0] || { accuracy: 0, precision: 0, recall: 0, f1: 0, auc: 0, model: 'Model' };
+            const top = cd[0];
             new Chart(document.getElementById('radarChart'), {
                 type: 'radar',
                 data: {
@@ -162,67 +231,50 @@
                     datasets: [{
                         label: top.model,
                         data: [top.accuracy, top.precision, top.recall, top.f1, top.auc],
-                        backgroundColor: 'rgba(102, 126, 234, 0.3)',
-                        borderColor: '#667eea',
-                        borderWidth: 2
+                        backgroundColor: 'rgba(79, 70, 229, 0.15)',
+                        borderColor: '#4f46e5',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#4f46e5'
                     }]
                 },
-                options: { responsive: true, scales: { r: { beginAtZero: true, max: 1 } } }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { r: { beginAtZero: true, max: 1 } }
+                }
             });
             console.log(">>> Charts rendered");
-        } catch (e) {
-            console.error(">>> Chart error:", e);
+        } else {
+            console.warn(">>> No comparison data — charts skipped");
         }
 
-        // ---------- CHATBOT ----------
+        // CHATBOT
         function toggleChat() {
-            console.log(">>> toggleChat called");
-            const box = document.getElementById("chat-box");
-            box.classList.toggle("open");
-            console.log(">>> Chat box now has classes:", box.className);
+            console.log(">>> toggleChat");
+            document.getElementById("chat-box").classList.toggle("open");
         }
 
         async function sendMessage() {
-            console.log(">>> sendMessage called");
             const input = document.getElementById("chat-input");
             const text = input.value.trim();
-            console.log(">>> Message text:", text);
             if (!text) return;
 
             addMessage(text, "user");
             input.value = "";
-
             const typingId = addMessage("...", "bot typing");
 
             try {
-                console.log(">>> Sending POST to /chat");
                 const res = await fetch("/chat", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ message: text })
                 });
-                console.log(">>> Response status:", res.status);
-                console.log(">>> Response redirected to:", res.redirected, res.url);
-
-                const rawText = await res.text();
-                console.log(">>> Raw response body:", rawText);
-
+                const data = await res.json();
                 document.getElementById(typingId).remove();
-
-                let data;
-                try {
-                    data = JSON.parse(rawText);
-                } catch (parseErr) {
-                    console.error(">>> Not JSON:", parseErr);
-                    addMessage("Server returned non-JSON. Check F12 console.", "bot");
-                    return;
-                }
-
                 addMessage(data.reply || "No reply.", "bot");
             } catch (e) {
-                console.error(">>> Fetch error:", e);
-                const t = document.getElementById(typingId);
-                if (t) t.remove();
+                console.error("Chat error:", e);
+                document.getElementById(typingId).remove();
                 addMessage("Error: " + e.message, "bot");
             }
         }
@@ -230,7 +282,7 @@
         function addMessage(text, type) {
             const container = document.getElementById("chat-messages");
             const div = document.createElement("div");
-            const id = "msg-" + Date.now() + "-" + Math.random().toString(36).slice(2);
+            const id = "msg-" + Date.now() + Math.random();
             div.id = id;
             div.className = "chat-msg " + type;
             div.textContent = text;
@@ -239,8 +291,7 @@
             return id;
         }
 
-        console.log(">>> Dashboard scripts loaded OK");
+        console.log(">>> Dashboard scripts loaded");
     </script>
-
 </body>
 </html>
