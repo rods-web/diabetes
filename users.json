@@ -1,0 +1,22 @@
+{
+  "rodspogi": {
+    "email": "rods21266@gmail.com",
+    "password": "scrypt:32768:8:1$FGFtsQFGVhHJ6vUK$7c9b42ea3e216c7230ac89d70e17dde480713cfe16f2abe73bc240d7edb6ef7cb7a424829939ab0237034b2af4ce821938790607f3b45565f99c509b720be3cb",
+    "created": "2026-09-17T23:36:26.414901"
+  },
+  "kurimaw": {
+    "email": "kurimaw@gmail.com",
+    "password": "scrypt:32768:8:1$I5uApU7C8RhrOj4F$e947ba7c016eff349b501a2aaafe7aa3b546cdba2c1baeedfa27ca243198183d48ace5ea08fe1dc19a29f17cf4844fbd6a69050ba34d89e25ebb6cb7bf5b06b7",
+    "created": "2026-09-17T23:37:31.024835"
+  },
+  "vanje": {
+    "email": "vanje@gmail.com",
+    "password": "scrypt:32768:8:1$7BZ5TNK44vwjfzz1$f3c39f2e9ebceb005be2e6185f628cfab22c3886abcc2459c73d95397726290f77ea19cecb21593c5c445af33c052352e0fc47e6801ea87dbc4b3a8b28166991",
+    "created": "2026-09-17T23:38:39.648059"
+  },
+  "test": {
+    "email": "test@gmail.com",
+    "password": "scrypt:32768:8:1$9hMUh4in0qYi5oo6$46e1cda53bdbaafbe13ba2e157122a41b5e763a33826c81e4b9bb1b8afcac5b06bbd0f9f7d6eaf36552eb4667165223a7ed6e48076d31bd2471f344e7790758b",
+    "created": "2026-09-17T23:45:54.970471"
+  }
+}

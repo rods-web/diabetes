@@ -1,0 +1,14 @@
+[
+  {
+    "user": "test",
+    "timestamp": "2026-09-17 23:48:00",
+    "ratings": {
+      "accuracy": 5,
+      "reliability": 5,
+      "efficiency": 5,
+      "usability": 5,
+      "overall": 5
+    },
+    "comment": ""
+  }
+]
