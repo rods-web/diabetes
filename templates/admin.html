@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - DiaPredict</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="app-body">
+
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+            <span>DiaPredict</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('admin_dashboard') }}" class="active">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <span>Admin Panel</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">{{ user[0]|upper }}</div>
+                <div>
+                    <div class="user-name">{{ user }}</div>
+                    <div class="user-email">Administrator</div>
+                </div>
+            </div>
+            <a href="{{ url_for('logout') }}" class="btn-logout">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="page-header">
+            <h1>Admin Dashboard</h1>
+            <p>Complete system overview — users, activity, predictions, and analytics</p>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for cat, msg in messages %}
+                <div class="flash flash-{{ cat }}">{{ msg }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        <!-- ========================================================== -->
+        <!-- 1. TOP KPI CARDS                                            -->
+        <!-- ========================================================== -->
+        <section class="kpi-row">
+            <div class="kpi-card">
+                <div class="kpi-icon blue">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </div>
+                <div><div class="kpi-label">Total Users</div><div class="kpi-value">{{ total_users }}</div></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon green">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/>
+                    </svg>
+                </div>
+                <div><div class="kpi-label">Total Logins</div><div class="kpi-value">{{ total_logins }}</div></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon orange">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                    </svg>
+                </div>
+                <div><div class="kpi-label">Total Signups</div><div class="kpi-value">{{ total_signups }}</div></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon purple">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+                    </svg>
+                </div>
+                <div><div class="kpi-label">Total Predictions</div><div class="kpi-value">{{ total_predictions }}</div></div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- 2. 24H ACTIVITY + RISK DISTRIBUTION                         -->
+        <!-- ========================================================== -->
+        <section class="kpi-row">
+            <div class="kpi-card">
+                <div class="kpi-icon green"><span style="font-size:20px;">⬆</span></div>
+                <div><div class="kpi-label">Logins (24h)</div><div class="kpi-value">{{ logins_24h }}</div></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon blue"><span style="font-size:20px;">＋</span></div>
+                <div><div class="kpi-label">Signups (24h)</div><div class="kpi-value">{{ signups_24h }}</div></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon orange"><span style="font-size:20px;">⚡</span></div>
+                <div><div class="kpi-label">Predictions (24h)</div><div class="kpi-value">{{ predictions_24h }}</div></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon purple"><span style="font-size:20px;">★</span></div>
+                <div><div class="kpi-label">Feedback Total</div><div class="kpi-value">{{ total_feedback }}</div></div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- 3. ANALYTICS CHARTS (NEW)                                   -->
+        <!-- ========================================================== -->
+        <section class="charts-row">
+            <div class="chart-card">
+                <h3>Risk Distribution</h3>
+                <canvas id="riskChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Predictions — Last 7 Days</h3>
+                <canvas id="trendChart"></canvas>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- 4. TOP ACTIVE USERS + RECENT ACTIVITY FEED (NEW)            -->
+        <!-- ========================================================== -->
+        <section class="bottom-row">
+            <div class="table-card">
+                <h3>Top Active Users</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>Predictions</th>
+                            <th>Last Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for u in top_users %}
+                        <tr>
+                            <td>
+                                {% if loop.index == 1 %}🥇
+                                {% elif loop.index == 2 %}🥈
+                                {% elif loop.index == 3 %}🥉
+                                {% else %}{{ loop.index }}{% endif %}
+                            </td>
+                            <td><strong>{{ u.username }}</strong></td>
+                            <td><span class="badge" style="background:#eef2ff;color:#4f46e5;">{{ u.predictions }} predictions</span></td>
+                            <td style="font-size:12px;color:#64748b;">{{ u.last_active }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% if not top_users %}
+                        <tr><td colspan="4" style="text-align:center;color:#94a3b8;padding:20px;">No active users yet</td></tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="cta-card" style="background: #f8fafc; color: #333; text-align: left; padding: 25px;">
+                <h3 style="color: #0f172a; margin-bottom: 15px;">System Status</h3>
+                <div style="display:flex; flex-direction:column; gap:12px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="color:#64748b; font-size:14px;">Model Accuracy</span>
+                        <span style="font-weight:700; color:#16a34a;">76.62%</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="color:#64748b; font-size:14px;">Model AUC</span>
+                        <span style="font-weight:700; color:#4f46e5;">80.76%</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="color:#64748b; font-size:14px;">Database</span>
+                        <span style="font-weight:700; color:#16a34a;">SQLite (online)</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="color:#64748b; font-size:14px;">Uptime</span>
+                        <span style="font-weight:700; color:#16a34a;">Active</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- 5. USERS TABLE                                              -->
+        <!-- ========================================================== -->
+        <div class="table-card">
+            <h3>All Users — {{ total_users }} total</h3>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Registered</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for u in users %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td><strong>{{ u.username }}</strong></td>
+                            <td>{{ u.email }}</td>
+                            <td>
+                                {% if u.is_admin %}
+                                    <span class="badge" style="background:#eef2ff;color:#4f46e5;">ADMIN</span>
+                                {% else %}
+                                    <span class="badge" style="background:#f1f5f9;color:#475569;">User</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ u.created.strftime("%Y-%m-%d %H:%M") if u.created else "-" }}</td>
+                            <td>
+                                {% if u.username != 'admin' %}
+                                <form method="POST" action="{{ url_for('admin_delete_user', username=u.username) }}"
+                                      onsubmit="return confirm('Delete user {{ u.username }}?');" style="display:inline;">
+                                    <button type="submit" class="btn-danger" style="padding:6px 12px;font-size:12px;">Delete</button>
+                                </form>
+                                {% else %}
+                                    <span style="color:#94a3b8;font-size:12px;">Protected</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- 6. LOGIN / SIGNUP ACTIVITY                                  -->
+        <!-- ========================================================== -->
+        <div class="table-card">
+            <h3>Who Logged In / Signed Up — Last 50 events</h3>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>Action</th>
+                            <th>Date & Time</th>
+                            <th>IP Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for l in logins %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td><strong>{{ l.username }}</strong></td>
+                            <td>
+                                {% if l.action == 'login' %}
+                                    <span class="badge" style="background:#dcfce7;color:#16a34a;">LOGIN</span>
+                                {% elif l.action == 'signup' %}
+                                    <span class="badge" style="background:#eef2ff;color:#4f46e5;">SIGNUP</span>
+                                {% else %}
+                                    <span class="badge" style="background:#f1f5f9;color:#475569;">{{ l.action|upper }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ l.timestamp.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+                            <td><code style="font-size:12px;">{{ l.ip or '-' }}</code></td>
+                        </tr>
+                        {% endfor %}
+                        {% if not logins %}
+                        <tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:20px;">No activity yet</td></tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- 7. PREDICTIONS                                              -->
+        <!-- ========================================================== -->
+        <div class="table-card">
+            <h3>Who Made Predictions — Last 50</h3>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>Result</th>
+                            <th>Confidence</th>
+                            <th>Date & Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in predictions %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td><strong>{{ p.username }}</strong></td>
+                            <td>
+                                {% if p.prediction == 'High Risk' %}
+                                    <span class="badge badge-danger">High Risk</span>
+                                {% else %}
+                                    <span class="badge badge-success">Low Risk</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ p.confidence }}%</td>
+                            <td>{{ p.timestamp.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% if not predictions %}
+                        <tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:20px;">No predictions yet</td></tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- 8. FEEDBACK SUMMARY                                         -->
+        <!-- ========================================================== -->
+        {% if total_feedback > 0 %}
+        <section class="charts-row">
+            <div class="chart-card">
+                <h3>Feedback — Weighted Mean per Criterion</h3>
+                <canvas id="feedbackChart"></canvas>
+            </div>
+            <div class="table-card">
+                <h3>Feedback Interpretation</h3>
+                <table>
+                    <thead>
+                        <tr><th>Criterion</th><th>Mean</th><th>Rating</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for k, v in feedback_means.items() %}
+                        <tr>
+                            <td><strong>{{ k|capitalize }}</strong></td>
+                            <td>{{ v }} / 5</td>
+                            <td>
+                                {% if v >= 4.5 %}Excellent
+                                {% elif v >= 3.5 %}Very Good
+                                {% elif v >= 2.5 %}Good
+                                {% elif v >= 1.5 %}Fair
+                                {% else %}Poor{% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div style="margin-top:20px;padding:16px;background:#f8fafc;border-radius:10px;">
+                    <div style="font-size:12px;color:#64748b;text-transform:uppercase;font-weight:600;">Overall Mean</div>
+                    <div style="font-size:28px;font-weight:700;color:#0f172a;">{{ overall_mean }} / 5</div>
+                    <div style="margin-top:6px;font-size:14px;color:#4f46e5;font-weight:600;">{{ interpretation }}</div>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+    </main>
+
+    <!-- CHARTS -->
+    <script>
+        // Risk Distribution (Doughnut)
+        new Chart(document.getElementById('riskChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['High Risk', 'Low Risk'],
+                datasets: [{
+                    data: [{{ high_risk_count }}, {{ low_risk_count }}],
+                    backgroundColor: ['#dc2626', '#16a34a'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // Predictions — Last 7 Days (Line)
+        new Chart(document.getElementById('trendChart'), {
+            type: 'line',
+            data: {
+                labels: {{ last_7_days_labels|tojson }},
+                datasets: [{
+                    label: 'Predictions',
+                    data: {{ last_7_days_data|tojson }},
+                    borderColor: '#4f46e5',
+                    backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                    borderWidth: 2.5,
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: '#4f46e5',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, ticks: { stepSize: 1 } }
+                }
+            }
+        });
+
+        {% if total_feedback > 0 %}
+        // Feedback Bar Chart
+        new Chart(document.getElementById('feedbackChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Accuracy', 'Reliability', 'Efficiency', 'Usability', 'Overall'],
+                datasets: [{
+                    label: 'Weighted Mean (out of 5)',
+                    data: [
+                        {{ feedback_means.accuracy }},
+                        {{ feedback_means.reliability }},
+                        {{ feedback_means.efficiency }},
+                        {{ feedback_means.usability }},
+                        {{ feedback_means.overall }}
+                    ],
+                    backgroundColor: ['#4f46e5', '#7c3aed', '#ec4899', '#06b6d4', '#10b981']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true, max: 5 } },
+                plugins: { legend: { display: false } }
+            }
+        });
+        {% endif %}
+    </script>
+</body>
+</html>

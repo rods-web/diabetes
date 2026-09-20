@@ -1,6 +1,7 @@
 ﻿users.json
 history.json
 feedback.json
+app.db
 .env
 __pycache__/
 *.pyc
