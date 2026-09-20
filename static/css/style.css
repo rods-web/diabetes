@@ -694,3 +694,340 @@ tbody tr:hover { background: #f8fafc; }
     color: #64748b;
     line-height: 1.6;
 }
+/* ============================================================
+   MOBILE RESPONSIVE
+   ============================================================ */
+
+/* Prevent horizontal scroll */
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Tablets and smaller */
+@media (max-width: 1024px) {
+    .charts-row {
+        grid-template-columns: 1fr !important;
+    }
+    .bottom-row {
+        grid-template-columns: 1fr !important;
+    }
+    .kpi-row {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 768px) {
+    /* Sidebar becomes top bar */
+    .app-body {
+        flex-direction: column !important;
+    }
+    .sidebar {
+        width: 100% !important;
+        height: auto !important;
+        position: relative !important;
+        padding: 15px !important;
+        flex-direction: column !important;
+    }
+    .sidebar-logo {
+        margin-bottom: 15px !important;
+        padding-left: 0 !important;
+        justify-content: center;
+    }
+    .sidebar-nav {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        gap: 6px !important;
+        justify-content: center;
+        margin-bottom: 12px;
+    }
+    .sidebar-nav a {
+        padding: 8px 12px !important;
+        font-size: 13px !important;
+        flex: 0 0 auto;
+    }
+    .sidebar-nav a span {
+        display: none; /* hide text on mobile, keep icons */
+    }
+    .sidebar-nav a svg {
+        width: 20px !important;
+        height: 20px !important;
+    }
+    .sidebar-footer {
+        border-top: none !important;
+        padding-top: 12px !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
+    .user-info {
+        margin-bottom: 0 !important;
+        flex: 1;
+    }
+    .user-name { font-size: 13px !important; }
+    .btn-logout {
+        padding: 8px 14px !important;
+        width: auto !important;
+    }
+
+    /* Main content */
+    .main-content {
+        padding: 18px 14px !important;
+    }
+    .page-header {
+        margin-bottom: 18px !important;
+    }
+    .page-header h1 {
+        font-size: 22px !important;
+    }
+    .page-header p {
+        font-size: 13px !important;
+    }
+
+    /* KPI cards - stack on mobile */
+    .kpi-row {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+    .kpi-card {
+        padding: 14px 16px !important;
+    }
+    .kpi-value {
+        font-size: 20px !important;
+    }
+    .kpi-icon {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    .kpi-icon svg {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    /* Chart cards */
+    .chart-card {
+        padding: 16px !important;
+    }
+    .chart-card h3 {
+        font-size: 14px !important;
+    }
+    .chart-card canvas {
+        max-height: 240px !important;
+    }
+
+    /* Tables - horizontal scroll */
+    .table-card {
+        padding: 16px !important;
+    }
+    .table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    table {
+        min-width: 600px;
+        font-size: 12px !important;
+    }
+    thead th, tbody td {
+        padding: 8px 10px !important;
+    }
+
+    /* CTA card */
+    .cta-card {
+        padding: 20px !important;
+    }
+    .cta-card h3 {
+        font-size: 16px !important;
+    }
+
+    /* Forms */
+    .form-card {
+        padding: 18px !important;
+    }
+    .form-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+    .form-group input,
+    .form-group textarea {
+        padding: 11px 12px !important;
+        font-size: 14px;
+    }
+
+    /* Result card */
+    .result-card {
+        padding: 30px 18px !important;
+    }
+    .result-card h2 {
+        font-size: 24px !important;
+    }
+    .result-icon svg {
+        width: 42px !important;
+        height: 42px !important;
+    }
+
+    /* Action buttons */
+    .action-row {
+        flex-direction: column !important;
+    }
+    .action-row a {
+        width: 100% !important;
+    }
+
+    /* Settings grid */
+    .settings-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Auth pages */
+    .auth-card {
+        padding: 25px 20px !important;
+        margin: 15px !important;
+        width: auto !important;
+    }
+    .auth-logo svg {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    .auth-header h2 {
+        font-size: 22px !important;
+    }
+
+    /* Landing page */
+    .navbar {
+        padding: 14px 20px !important;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .nav-logo {
+        font-size: 18px !important;
+    }
+    .nav-links {
+        gap: 8px !important;
+    }
+    .nav-links a {
+        padding: 7px 12px !important;
+        font-size: 13px !important;
+    }
+    .hero {
+        padding: 40px 20px !important;
+    }
+    .hero-content h1 {
+        font-size: 30px !important;
+        line-height: 1.2;
+    }
+    .hero-content p {
+        font-size: 14px !important;
+    }
+    .hero-buttons {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+    .hero-buttons a {
+        width: 100% !important;
+    }
+    .features {
+        padding: 50px 20px !important;
+    }
+    .features h2 {
+        font-size: 24px !important;
+        margin-bottom: 30px !important;
+    }
+    .feature-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px;
+    }
+    .feature-card {
+        padding: 22px !important;
+    }
+    .footer {
+        padding: 20px !important;
+        font-size: 12px !important;
+    }
+
+    /* Likert survey */
+    .likert-row {
+        gap: 8px !important;
+    }
+    .likert-option span {
+        width: 42px !important;
+        height: 42px !important;
+        font-size: 14px !important;
+    }
+    .likert-group > label {
+        font-size: 14px !important;
+    }
+
+    /* Chatbot */
+    #chat-toggle {
+        width: 52px !important;
+        height: 52px !important;
+        bottom: 20px !important;
+        right: 20px !important;
+    }
+    #chat-toggle svg {
+        width: 22px !important;
+        height: 22px !important;
+    }
+    .chat-box {
+        width: calc(100vw - 30px) !important;
+        max-width: 400px !important;
+        height: 70vh !important;
+        max-height: 500px !important;
+        right: 15px !important;
+        bottom: 85px !important;
+    }
+    .chat-header strong {
+        font-size: 13px !important;
+    }
+    .chat-msg {
+        font-size: 13px !important;
+        padding: 9px 12px !important;
+    }
+    .chat-input-row input,
+    .chat-input-row button {
+        font-size: 14px !important;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+    .sidebar-nav a {
+        padding: 6px 9px !important;
+    }
+    .sidebar-nav a svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+    .hero-content h1 {
+        font-size: 26px !important;
+    }
+    .kpi-value {
+        font-size: 18px !important;
+    }
+    .result-card h2 {
+        font-size: 20px !important;
+    }
+}
+
+/* Ensure inputs don't zoom on iOS */
+@media (max-width: 768px) {
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* Smooth touch scrolling for tables */
+.table-scroll {
+    -webkit-overflow-scrolling: touch;
+}
+.app-body {
+    min-height: 100vh;
+    align-items: stretch;
+}
+
+.sidebar {
+    height: auto;
+    min-height: 100vh;
+}
